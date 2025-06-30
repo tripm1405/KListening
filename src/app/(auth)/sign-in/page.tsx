@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import React from 'react';
-import { KSignInPage } from 'k-client';
+import { KSignInPage } from @krotohmi/k-client';
 import RouterUtil from '~/utils/router.util';
 
 const SignInPage = () => {

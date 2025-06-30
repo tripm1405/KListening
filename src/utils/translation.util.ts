@@ -1,4 +1,4 @@
-import { KObj } from 'k-ts';
+import { KObj } from @krotohmi/k-ts';
 
 export const TranslationKey = {
   Group: {},

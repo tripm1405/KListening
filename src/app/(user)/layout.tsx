@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import React from 'react';
-import { KLayout } from 'k-client';
+import { KLayout } from @krotohmi/k-client';
 import { ILayoutProps } from '~/app.type';
 import { Menu, MenuProps } from 'antd';
 import RouterUtil from '~/utils/router.util';

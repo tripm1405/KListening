@@ -1,11 +1,11 @@
 import React from 'react';
-import { KButton } from 'k-react';
+import { KButton } from @krotohmi/k-react';
 import { TranslationKey } from '~/utils/translation.util';
 import { Modal, Upload } from 'antd';
-import { useKLanguageContext } from 'k-client';
+import { useKLanguageContext } from @krotohmi/k-client';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInbox } from '@fortawesome/free-solid-svg-icons';
-import { KApiUtil } from 'k-api';
+import { KApiUtil } from @krotohmi/k-api';
 import QuestionApi from '~/modules/question/question.api';
 import GroupApi from '~/modules/group/group.api';
 

@@ -1,14 +1,14 @@
 'use client';
 
 import React from 'react';
-import { KButton, KFlex, KTable } from 'k-react';
+import { KButton, KFlex, KTable } from @krotohmi/k-react';
 import { GroupQueryKey } from '~/modules/group/group.constant';
 import GroupApi, { GroupUrl } from '~/modules/group/group.api';
-import KTs from 'k-ts';
+import KTs from @krotohmi/k-ts';
 import { IGroup } from '~/modules/group/group.type';
 import { useRouter } from 'next/navigation';
 import RouterUtil from '~/utils/router.util';
-import { useKLanguageContext } from 'k-client';
+import { useKLanguageContext } from @krotohmi/k-client';
 import TranslationUtil from '~/utils/translation.util';
 import { useQueryClient } from '@tanstack/react-query';
 

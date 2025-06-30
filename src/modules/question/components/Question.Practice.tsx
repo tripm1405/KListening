@@ -3,9 +3,9 @@
 import React, { useMemo } from 'react';
 import { IQuestion } from '~/modules/question/question.type';
 import { Input, InputRef } from 'antd';
-import { KButton } from 'k-react';
+import { KButton } from @krotohmi/k-react';
 import QuestionCorrectedAnswer from '~/modules/question/components/Question.CorrectedAnswer';
-import { useKLanguageContext } from 'k-client';
+import { useKLanguageContext } from @krotohmi/k-client';
 import { TranslationKey } from '~/utils/translation.util';
 
 interface IProps {
