@@ -47,13 +47,6 @@ const QuestionApi = {
       url: QuestionUrl.genUpdate(id),
     });
   },
-  del: (id: string, config?: Omit<IKReq, 'method' | 'url'>) => {
-    return AppApi.request({
-      ...config,
-      method: KApiMethod.DELETE,
-      url: QuestionUrl.genDel(id),
-    });
-  },
 };
 
 export default QuestionApi;

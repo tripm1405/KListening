@@ -11,7 +11,6 @@ import RouterUtil from '~/utils/router.util';
 import { useKLanguageContext } from 'k-client';
 import TranslationUtil from '~/utils/translation.util';
 import { useQueryClient } from '@tanstack/react-query';
-import KTranslation from '~/KTranslation';
 
 const GroupListPage = () => {
   const router = useRouter();

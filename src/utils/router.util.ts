@@ -11,7 +11,6 @@ function genDefaultCollectRoute(pre: string) {
 const RouterUtil = {
   genHome: () => '/',
   genSignIn: () => '/sign-in',
-  genSignUp: () => '/sign-up',
   Group: genDefaultCollectRoute('groups'),
   Question: {
     ...genDefaultCollectRoute('questions'),

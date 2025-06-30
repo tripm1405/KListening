@@ -13,8 +13,7 @@ interface IProps {
 const QuestionCorrectedAnswer = ({
   getSubmittedAnswer,
   expectedAnswer,
-  reAnswer,
-  ...props
+  reAnswer
 }: IProps) => {
   const { translate } = useKLanguageContext();
   const [transition, setTransition] = React.useState(false);
