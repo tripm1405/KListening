@@ -1,13 +1,13 @@
 'use client';
 
 import React from 'react';
-import { KButton, KForm, KLoading } from @krotohmi/k-react';
+import { KButton, KForm, KLoading } from '@krotohmi/k-react';
 import { Form, Input } from 'antd';
-import KTs from @krotohmi/k-ts';
+import KTs from '@krotohmi/k-ts';
 import { IQuestion } from '~/modules/question/question.type';
 import AppTranslationUtil from '~/utils/translation.util';
-import { useKLanguageContext } from @krotohmi/k-client';
-import { useKQuery } from @krotohmi/k-tanstack';
+import { useKLanguageContext } from 'k-client';
+import { useKQuery } from '@krotohmi/k-tanstack';
 import { QuestionQueryKey } from '~/modules/question/question.constant';
 import QuestionApi from '~/modules/question/question.api';
 

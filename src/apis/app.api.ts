@@ -1,6 +1,6 @@
 import axios from 'axios';
 import qs from 'qs';
-import KApi from @krotohmi/k-api';
+import KApi from '@krotohmi/k-api';
 
 const Domain = process.env.API_DOMAIN || 'http://localhost:5000';
 

@@ -2,10 +2,10 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import { KTranslationKey, useKLanguageContext } from @krotohmi/k-client';
-import { KButton, KForm } from @krotohmi/k-react';
+import { KTranslationKey, useKLanguageContext } from 'k-client';
+import { KButton, KForm } from '@krotohmi/k-react';
 import { Form, Input } from 'antd';
-import KTs from @krotohmi/k-ts';
+import KTs from '@krotohmi/k-ts';
 import AppTranslationUtil from '~/utils/translation.util';
 import { IQuestion } from '~/modules/question/question.type';
 import QuestionApi from '~/modules/question/question.api';

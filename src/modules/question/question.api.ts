@@ -1,4 +1,4 @@
-import { IKListReq, IKReq, KApiMethod } from @krotohmi/k-api';
+import { IKListReq, IKReq, KApiMethod } from '@krotohmi/k-api';
 import { IQuestion} from '~/modules/question/question.type';
 import AppApi from '~/apis/app.api';
 

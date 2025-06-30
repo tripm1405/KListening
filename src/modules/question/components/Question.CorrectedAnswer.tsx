@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
-import { KButton } from @krotohmi/k-react';
-import { useKLanguageContext } from @krotohmi/k-client';
+import { KButton } from '@krotohmi/k-react';
+import { useKLanguageContext } from 'k-client';
 import { TranslationKey } from '~/utils/translation.util';
 import { diffArrays } from 'diff';
 

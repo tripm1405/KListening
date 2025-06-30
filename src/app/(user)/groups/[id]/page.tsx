@@ -1,15 +1,15 @@
 'use client';
 
 import React from 'react';
-import { useKQuery } from @krotohmi/k-tanstack';
+import { useKQuery } from '@krotohmi/k-tanstack';
 import { GroupQueryKey } from '~/modules/group/group.constant';
 import GroupApi from '~/modules/group/group.api';
 import { Flex, Form, Input } from 'antd';
-import KTs from @krotohmi/k-ts';
+import KTs from '@krotohmi/k-ts';
 import { IGroup } from '~/modules/group/group.type';
 import AppTranslationUtil, { TranslationKey } from '~/utils/translation.util';
-import { KButton, KFlex, KForm, KLoading } from @krotohmi/k-react';
-import { KTranslationKey, useKLanguageContext } from @krotohmi/k-client';
+import { KButton, KFlex, KForm, KLoading } from '@krotohmi/k-react';
+import { KTranslationKey, useKLanguageContext } from 'k-client';
 import RouterUtil from '~/utils/router.util';
 import QuestionTable from '~/modules/question/components/Question.Table';
 import { useRouter } from 'next/navigation';

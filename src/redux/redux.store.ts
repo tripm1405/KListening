@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { KReducers } from @krotohmi/k-client';
+import { KReducers } from 'k-client';
 
 const ReduxStore = configureStore({
   reducer: {

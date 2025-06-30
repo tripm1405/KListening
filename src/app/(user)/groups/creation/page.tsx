@@ -1,13 +1,13 @@
 'use client';
 
 import React from 'react';
-import { KButton, KForm } from @krotohmi/k-react';
+import { KButton, KForm } from '@krotohmi/k-react';
 import { Form, Input } from 'antd';
-import KTs from @krotohmi/k-ts';
+import KTs from '@krotohmi/k-ts';
 import { IGroup } from '~/modules/group/group.type';
 import AppTranslationUtil from '~/utils/translation.util';
 import { useRouter } from 'next/navigation';
-import { useKLanguageContext, KTranslationKey } from @krotohmi/k-client';
+import { useKLanguageContext, KTranslationKey } from 'k-client';
 import GroupApi from '~/modules/group/group.api';
 import RouterUtil from '~/utils/router.util';
 
