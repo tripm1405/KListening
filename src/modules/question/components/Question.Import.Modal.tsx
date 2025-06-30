@@ -19,7 +19,7 @@ const QuestionImportModal = (props: IProps) => {
 
   return (
     <>
-      <KButton.Imp onClick={() => setShowImportModal(true)} />
+      <KButton.Import onClick={() => setShowImportModal(true)} />
       <Modal
         title={translate(TranslationKey.Question.Import_Modal)}
         closable={{ 'aria-label': 'Custom Close Button' }}
