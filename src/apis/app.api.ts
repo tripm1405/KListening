@@ -2,7 +2,9 @@ import axios from 'axios';
 import qs from 'qs';
 import KApi from '@krotohmi/k-api';
 
-const Domain = process.env.API_DOMAIN || 'http://localhost:5000';
+const Domain = process.env.API_DOMAIN || 'https://k-system-server.onrender.com/';
+
+console.log('Domain', Domain);
 
 const AxiosInstance = axios.create({
   baseURL: `${Domain}/api`,
