@@ -4,7 +4,6 @@ import React from 'react';
 import AppProvider from '~/app/App.Provider';
 import { ILayoutProps } from '~/app.type';
 import './globals.css';
-import Script from 'next/script';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -30,7 +29,6 @@ export default function RootLayout({ children }: ILayoutProps) {
     <AppProvider>
       {children}
     </AppProvider>
-    <Script src="https://code.responsivevoice.org/responsivevoice.js?key=uvxBCSG2" />
     </body>
     </html>
   );

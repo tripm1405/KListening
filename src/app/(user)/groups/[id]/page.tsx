@@ -12,14 +12,11 @@ import { KButton, KFlex, KForm, KLoading } from '@krotohmi/k-react';
 import { KTranslationKey, useKLanguageContext } from 'k-client';
 import RouterUtil from '~/utils/router.util';
 import QuestionTable from '~/modules/question/components/Question.Table';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import QuestionImportModal from '~/modules/question/components/Question.Import.Modal';
 
-interface IProps {
-  params: { id: string };
-}
-
-const GroupDetailPage = ({ params: { id } }: IProps) => {
+const GroupDetailPage = () => {
+  const { id } = useParams<{ id: string }>();
   const router = useRouter();
   const { translate } = useKLanguageContext();
 

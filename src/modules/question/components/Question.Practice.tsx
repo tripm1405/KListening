@@ -2,11 +2,15 @@
 
 import React, { useMemo } from 'react';
 import { IQuestion } from '~/modules/question/question.type';
-import { Input, InputRef } from 'antd';
-import { KButton } from '@krotohmi/k-react';
+import { Form, Input, InputRef } from 'antd';
+import { KButton, KFlex } from '@krotohmi/k-react';
 import QuestionCorrectedAnswer from '~/modules/question/components/Question.CorrectedAnswer';
 import { useKLanguageContext } from 'k-client';
 import { TranslationKey } from '~/utils/translation.util';
+import { getUUID } from 'rc-select/es/hooks/useId';
+import { FormRef } from 'rc-field-form';
+
+const InputName = String(getUUID());
 
 interface IProps {
   question: IQuestion;
@@ -18,6 +22,7 @@ const QuestionPractice = ({ onNext, question }: IProps) => {
   const [showHint, setShowHint] = React.useState(false);
   const [showCorrectedAnswer, setShowCorrectedAnswer] = React.useState(false);
   const inputRef = React.useRef<InputRef>(null);
+  const formRef = React.useRef<FormRef>(null);
 
   const utterance = useMemo(() => {
     const preSpeak = new SpeechSynthesisUtterance(' ');
@@ -37,7 +42,7 @@ const QuestionPractice = ({ onNext, question }: IProps) => {
     if (userAnswer === correctedAnswer) {
       setShowHint(false);
       setShowCorrectedAnswer(false);
-      if (inputRef.current?.input) inputRef.current.input.value = '';
+      formRef.current?.setFieldValue(InputName, '');
       onNext();
       return;
     }
@@ -87,8 +92,8 @@ const QuestionPractice = ({ onNext, question }: IProps) => {
   }
 
   return (
-    <div className={'flex flex-col gap-1'}>
-      <div className={'flex gap-1'}>
+    <KFlex vertical>
+      <KFlex>
         <KButton onClick={onSpeak}>
           {translate(TranslationKey.Question.Speak_Button)}
         </KButton>
@@ -98,11 +103,15 @@ const QuestionPractice = ({ onNext, question }: IProps) => {
         <KButton onClick={onCheck}>
           {translate(TranslationKey.Question.Check_Button)}
         </KButton>
-      </div>
+      </KFlex>
       <hr />
-      <Input ref={inputRef} autoComplete="off" />
+      <Form ref={formRef}>
+        <Form.Item name={String(getUUID())}>
+          <Input ref={inputRef} autoComplete="off" />
+        </Form.Item>
+      </Form>
       <div>{showHint && <div>{question.hint}</div>}</div>
-    </div>
+    </KFlex>
   );
 };
 

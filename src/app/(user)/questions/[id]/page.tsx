@@ -10,12 +10,10 @@ import { useKLanguageContext } from 'k-client';
 import { useKQuery } from '@krotohmi/k-tanstack';
 import { QuestionQueryKey } from '~/modules/question/question.constant';
 import QuestionApi from '~/modules/question/question.api';
+import { useParams } from 'next/navigation';
 
-interface IProps {
-  params: { id: string };
-}
-
-const QuestionDetailPage = ({ params: { id } }: IProps) => {
+const QuestionDetailPage = () => {
+  const { id } = useParams<{ id: string }>();
   const { translate } = useKLanguageContext();
 
   const { data, isLoading } = useKQuery({

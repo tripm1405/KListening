@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { KTranslationKey, useKLanguageContext } from 'k-client';
 import { KButton, KForm } from '@krotohmi/k-react';
 import { Form, Input } from 'antd';
@@ -9,10 +9,10 @@ import KTs from '@krotohmi/k-ts';
 import AppTranslationUtil from '~/utils/translation.util';
 import { IQuestion } from '~/modules/question/question.type';
 import QuestionApi from '~/modules/question/question.api';
+import useAppSP from '~/hooks/useAppSP';
 
 const QuestionCreationPage = () => {
-  const sp = useSearchParams();
-  const groupId = sp.get('groupId');
+  const { groupId } = useAppSP({ groupId: undefined });
   const router = useRouter();
   const { translate } = useKLanguageContext();
 

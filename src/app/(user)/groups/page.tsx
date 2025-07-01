@@ -25,12 +25,12 @@ const GroupListPage = () => {
   };
 
   return (
-    <div className={'flex flex-col gap-1'}>
-      <div>
+    <KFlex vertical>
+      <KFlex>
         <KButton.Create
           onClick={() => router.push(RouterUtil.Group.genCreation())}
         />
-      </div>
+      </KFlex>
       <KTable.Api<IGroup>
         query={{
           queryKey: [GroupQueryKey.List],
@@ -60,7 +60,7 @@ const GroupListPage = () => {
         ]}
         className={'w-full'}
       />
-    </div>
+    </KFlex>
   );
 };
 

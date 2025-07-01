@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { KButton } from '@krotohmi/k-react';
+import { KButton, KFlex } from '@krotohmi/k-react';
 import { useKLanguageContext } from 'k-client';
 import { TranslationKey } from '~/utils/translation.util';
 import { diffArrays } from 'diff';
@@ -68,12 +68,12 @@ const QuestionCorrectedAnswer = ({
   }, []);
 
   return (
-    <div className={'flex flex-col gap-1'}>
-      <div className={'flex gap-1'}>
+    <KFlex vertical>
+      <KFlex>
         <KButton onClick={reAnswer}>
           {translate(TranslationKey.Question.ReAnswer_Button)}
         </KButton>
-      </div>
+      </KFlex>
       <hr />
       <div>
         {diff.map((e, i) =>
@@ -103,7 +103,7 @@ const QuestionCorrectedAnswer = ({
           )),
         )}
       </div>
-    </div>
+    </KFlex>
   );
 };
 
