@@ -2,17 +2,15 @@
 
 import React from 'react';
 import QuestionPractice from '~/modules/question/components/Question.Practice';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useKQuery } from '@krotohmi/k-tanstack';
 import { QuestionQueryKey } from '~/modules/question/question.constant';
 import QuestionApi from '~/modules/question/question.api';
 import { KLoading } from '@krotohmi/k-react';
 
-interface IProps {
-  searchParams: { groupId: string };
-}
-
-const PractisePage = ({ searchParams: { groupId } }: IProps) => {
+const PractisePage = () => {
+  const sp = useSearchParams();
+  const groupId = sp.get('groupId');
   const router = useRouter();
   const [currentIndex, setCurrentIndex] = React.useState(0);
 
