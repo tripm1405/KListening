@@ -1,8 +1,8 @@
 import React from 'react';
 import { KButton } from '@krotohmi/k-react';
 import { TranslationKey } from '~/utils/translation.util';
-import { Modal, Upload } from 'antd';
-import { useKLanguageContext } from 'k-client';
+import { Modal, Upload, UploadFile } from 'antd';
+import { useKClientContext, useKLanguageContext } from 'k-client';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInbox } from '@fortawesome/free-solid-svg-icons';
 import { KApiUtil } from '@krotohmi/k-api';
@@ -15,6 +15,8 @@ interface IProps {
 
 const QuestionImportModal = (props: IProps) => {
   const { translate } = useKLanguageContext();
+  const { handleApi } = useKClientContext();
+  const [fileList, setFileList] = React.useState<UploadFile[]>([]);
   const [showImportModal, setShowImportModal] = React.useState(false);
 
   return (
@@ -28,33 +30,31 @@ const QuestionImportModal = (props: IProps) => {
         onCancel={() => setShowImportModal(false)}
       >
         <Upload.Dragger
+          fileList={fileList}
+          onChange={({ fileList }) => setFileList(fileList)}
           multiple={false}
           accept={'.csv'}
           customRequest={async ({ file }) => {
-            if (props.groupId) {
-              await GroupApi.importQuestions(props.groupId, {
-                data: KApiUtil.genFormData({
-                  data: {
-                    file: file,
-                  },
-                }),
-                headers: {
-                  'Content-Type': 'multipart/form-data',
+            const config = {
+              data: KApiUtil.genFormData({
+                data: {
+                  file: file,
                 },
-              });
-            }
-            else {
-              await QuestionApi.import({
-                data: KApiUtil.genFormData({
-                  data: {
-                    file: file,
-                  },
-                }),
-                headers: {
-                  'Content-Type': 'multipart/form-data',
-                },
-              });
-            }
+              }),
+              headers: {
+                'Content-Type': 'multipart/form-data',
+              },
+            };
+            const data = await handleApi(
+              props.groupId
+                ? GroupApi.importQuestions(props.groupId, config)
+                : QuestionApi.import(config),
+            ).finally(() => {
+              setFileList([]);
+            });
+
+            if (!data.success) return;
+
             setShowImportModal(false);
           }}
         >

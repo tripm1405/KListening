@@ -6,7 +6,7 @@ import { Form, Input } from 'antd';
 import KTs from '@krotohmi/k-ts';
 import { IQuestion } from '~/modules/question/question.type';
 import AppTranslationUtil from '~/utils/translation.util';
-import { useKLanguageContext } from 'k-client';
+import { useKClientContext, useKLanguageContext } from 'k-client';
 import { useKQuery } from '@krotohmi/k-tanstack';
 import { QuestionQueryKey } from '~/modules/question/question.constant';
 import QuestionApi from '~/modules/question/question.api';
@@ -15,6 +15,7 @@ import { useParams } from 'next/navigation';
 const QuestionDetailPage = () => {
   const { id } = useParams<{ id: string }>();
   const { translate } = useKLanguageContext();
+  const { handleApi } = useKClientContext();
 
   const { data, isLoading } = useKQuery({
     queryKey: [QuestionQueryKey.Detail, id],
@@ -22,9 +23,9 @@ const QuestionDetailPage = () => {
   });
 
   const onSubmit = async (values: IQuestion) => {
-    await QuestionApi.update(id, {
+    await handleApi(QuestionApi.update(id, {
       data: values,
-    });
+    }));
   };
 
   return (

@@ -1,6 +1,6 @@
 import { IKListReq, IKReq, KApiMethod } from '@krotohmi/k-api';
 import { IGroup } from './group.type';
-import AppApi from '~/apis/app.api';
+import AppApi from '~/app.api';
 
 export const GroupPrefix = '/groups';
 

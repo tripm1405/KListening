@@ -1,6 +1,6 @@
 import { IKListReq, IKReq, KApiMethod } from '@krotohmi/k-api';
 import { IQuestion} from '~/modules/question/question.type';
-import AppApi from '~/apis/app.api';
+import AppApi from '~/app.api';
 
 export const QuestionPrefix = '/questions';
 
@@ -45,6 +45,13 @@ const QuestionApi = {
       ...config,
       method: KApiMethod.PUT,
       url: QuestionUrl.genUpdate(id),
+    });
+  },
+  del: (id: string, config?: Omit<IKReq, 'method' | 'url'>) => {
+    return AppApi.request({
+      ...config,
+      method: KApiMethod.DELETE,
+      url: QuestionUrl.genDel(id),
     });
   },
 };

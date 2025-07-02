@@ -8,17 +8,21 @@ import KTs from '@krotohmi/k-ts';
 import { IGroup } from '~/modules/group/group.type';
 import { useRouter } from 'next/navigation';
 import RouterUtil from '~/utils/router.util';
-import { useKLanguageContext } from 'k-client';
+import { useKClientContext, useKLanguageContext } from 'k-client';
 import TranslationUtil from '~/utils/translation.util';
 import { useQueryClient } from '@tanstack/react-query';
 
 const GroupListPage = () => {
   const router = useRouter();
   const { translate } = useKLanguageContext();
+  const { handleApi } = useKClientContext();
   const query = useQueryClient();
 
   const callDel = async (id: string) => {
-    await GroupApi.del(id);
+    const data = await handleApi(GroupApi.del(id));
+
+    if (!data.success) return;
+
     await query.refetchQueries({
       queryKey: [GroupQueryKey.List],
     });

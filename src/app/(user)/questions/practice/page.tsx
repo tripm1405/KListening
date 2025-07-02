@@ -26,7 +26,7 @@ const PractisePage = () => {
   });
 
   const questions = React.useMemo(() => {
-    // ToDo: shuffle
+    // ToDo: KTs: shuffle
     return data?.result?.items?.sort(() => Math.random() - 0.5);
   }, [data]);
 

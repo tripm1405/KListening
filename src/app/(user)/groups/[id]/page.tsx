@@ -9,7 +9,11 @@ import KTs from '@krotohmi/k-ts';
 import { IGroup } from '~/modules/group/group.type';
 import AppTranslationUtil, { TranslationKey } from '~/utils/translation.util';
 import { KButton, KFlex, KForm, KLoading } from '@krotohmi/k-react';
-import { KTranslationKey, useKLanguageContext } from 'k-client';
+import {
+  KTranslationKey,
+  useKClientContext,
+  useKLanguageContext,
+} from 'k-client';
 import RouterUtil from '~/utils/router.util';
 import QuestionTable from '~/modules/question/components/Question.Table';
 import { useParams, useRouter } from 'next/navigation';
@@ -19,6 +23,7 @@ const GroupDetailPage = () => {
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
   const { translate } = useKLanguageContext();
+  const { handleApi } = useKClientContext();
 
   const { data, isFetching } = useKQuery({
     queryKey: [GroupQueryKey.Detail, id],
@@ -26,7 +31,7 @@ const GroupDetailPage = () => {
   });
 
   const onSubmit = async (values: IGroup) => {
-    await GroupApi.update(id, { data: values });
+    await handleApi(GroupApi.update(id, { data: values }));
   };
 
   return (

@@ -7,6 +7,6 @@ export interface IGroup extends IKEntity, KObj {
   userId: string;
 
   questions: IQuestion[];
-  // ToDo
+  // ToDo: KClient
   // user: IKUser;
 }

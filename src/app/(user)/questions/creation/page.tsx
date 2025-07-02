@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import { KTranslationKey, useKLanguageContext } from 'k-client';
+import { KTranslationKey, useKClientContext, useKLanguageContext } from 'k-client';
 import { KButton, KForm } from '@krotohmi/k-react';
 import { Form, Input } from 'antd';
 import KTs from '@krotohmi/k-ts';
@@ -15,15 +15,18 @@ const QuestionCreationPage = () => {
   const { groupId } = useAppSP({ groupId: undefined });
   const router = useRouter();
   const { translate } = useKLanguageContext();
+  const { handleApi } = useKClientContext();
 
   const onSubmit = async (values: IQuestion) => {
-    await QuestionApi.create({
+    const data = await handleApi(QuestionApi.create({
       data: {
         ...values,
         answer: values.answer.trim().toLowerCase(),
         groupId: groupId,
       },
-    });
+    }));
+
+    if (!data.success) return;
 
     router.back();
   };

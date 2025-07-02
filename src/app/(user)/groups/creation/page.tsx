@@ -7,18 +7,22 @@ import KTs from '@krotohmi/k-ts';
 import { IGroup } from '~/modules/group/group.type';
 import AppTranslationUtil from '~/utils/translation.util';
 import { useRouter } from 'next/navigation';
-import { useKLanguageContext, KTranslationKey } from 'k-client';
+import { useKLanguageContext, KTranslationKey, useKClientContext } from 'k-client';
 import GroupApi from '~/modules/group/group.api';
 import RouterUtil from '~/utils/router.util';
 
 const GroupCreationPage = () => {
   const router = useRouter();
   const { translate } = useKLanguageContext();
+  const { handleApi } = useKClientContext();
 
   const onSubmit = async (values: IGroup) => {
-    const data = await GroupApi.create({
+    const data = await handleApi(GroupApi.create({
       data: values,
-    });
+    }));
+
+    if (!data.success) return;
+
     router.push(RouterUtil.Group.genDetail(data.result));
   };
 
