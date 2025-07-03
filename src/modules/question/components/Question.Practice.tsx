@@ -9,6 +9,8 @@ import { useKLanguageContext } from 'k-client';
 import { TranslationKey } from '~/utils/translation.util';
 import { getUUID } from 'rc-select/es/hooks/useId';
 import { FormRef } from 'rc-field-form';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheck, faQuestion, faVolumeHigh } from '@fortawesome/free-solid-svg-icons';
 
 const InputName = String(getUUID());
 
@@ -94,15 +96,9 @@ const QuestionPractice = ({ onNext, question }: IProps) => {
   return (
     <KFlex vertical>
       <KFlex>
-        <KButton onClick={onSpeak}>
-          {translate(TranslationKey.Question.Speak_Button)}
-        </KButton>
-        <KButton onClick={() => setShowHint(true)}>
-          {translate(TranslationKey.Question.Hint_Button)}
-        </KButton>
-        <KButton onClick={onCheck}>
-          {translate(TranslationKey.Question.Check_Button)}
-        </KButton>
+        <KButton icon={<FontAwesomeIcon icon={faVolumeHigh} />} onClick={onSpeak} />
+        <KButton icon={<FontAwesomeIcon icon={faQuestion} />} onClick={() => setShowHint(true)} />
+        <KButton icon={<FontAwesomeIcon icon={faCheck} />} onClick={onCheck} />
       </KFlex>
       <hr />
       <Form ref={formRef}>
