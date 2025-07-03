@@ -8,12 +8,15 @@ import { faInbox } from '@fortawesome/free-solid-svg-icons';
 import { KApiUtil } from '@krotohmi/k-api';
 import QuestionApi from '~/modules/question/question.api';
 import GroupApi from '~/modules/group/group.api';
+import { useQueryClient } from '@tanstack/react-query';
+import { QuestionQueryKey } from '~/modules/question/question.constant';
 
 interface IProps {
   groupId?: string;
 }
 
 const QuestionImportModal = (props: IProps) => {
+  const query = useQueryClient();
   const { translate } = useKLanguageContext();
   const { handleApi } = useKClientContext();
   const [fileList, setFileList] = React.useState<UploadFile[]>([]);
@@ -56,6 +59,9 @@ const QuestionImportModal = (props: IProps) => {
             if (!data.success) return;
 
             setShowImportModal(false);
+            await query.refetchQueries({
+              queryKey: [QuestionQueryKey.List],
+            });
           }}
         >
           <div>
