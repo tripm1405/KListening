@@ -5,8 +5,6 @@ import { IQuestion } from '~/modules/question/question.type';
 import { Form, Input, InputRef } from 'antd';
 import { KButton, KFlex } from '@krotohmi/k-react';
 import QuestionCorrectedAnswer from '~/modules/question/components/Question.CorrectedAnswer';
-import { useKLanguageContext } from 'k-client';
-import { TranslationKey } from '~/utils/translation.util';
 import { getUUID } from 'rc-select/es/hooks/useId';
 import { FormRef } from 'rc-field-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -20,7 +18,6 @@ interface IProps {
 }
 
 const QuestionPractice = ({ onNext, question }: IProps) => {
-  const { translate } = useKLanguageContext();
   const [showHint, setShowHint] = React.useState(false);
   const [showCorrectedAnswer, setShowCorrectedAnswer] = React.useState(false);
   const inputRef = React.useRef<InputRef>(null);
