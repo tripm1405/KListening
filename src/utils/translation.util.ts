@@ -9,6 +9,7 @@ export const TranslationKey = {
     Speak_Button: 'Question_Speak_Button',
     ReAnswer_Button: 'Question_ReAnswer_Button',
     Import_Modal: 'Question_Import_Modal',
+    ResetStreak_Button: 'Question_ResetStreak_Button',
   },
 };
 

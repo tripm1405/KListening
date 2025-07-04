@@ -8,7 +8,12 @@ import QuestionCorrectedAnswer from '~/modules/question/components/Question.Corr
 import { getUUID } from 'rc-select/es/hooks/useId';
 import { FormRef } from 'rc-field-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck, faQuestion, faVolumeHigh } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCheck,
+  faLightbulb,
+  faVolumeHigh,
+} from '@fortawesome/free-solid-svg-icons';
+import QuestionApi from '~/modules/question/question.api';
 
 const InputName = String(getUUID());
 
@@ -27,7 +32,9 @@ const QuestionPractice = ({ onNext, question }: IProps) => {
     const preSpeak = new SpeechSynthesisUtterance(' ');
     preSpeak.lang = 'en-US';
     preSpeak.onend = () => {
-      const utterance = new SpeechSynthesisUtterance(`\u00A0 \u00A0 ... ${question.answer}`);
+      const utterance = new SpeechSynthesisUtterance(
+        `\u00A0 \u00A0 ... ${question.answer}`,
+      );
       utterance.lang = 'en-US';
       window.speechSynthesis.speak(utterance);
     };
@@ -41,12 +48,14 @@ const QuestionPractice = ({ onNext, question }: IProps) => {
     if (userAnswer === correctedAnswer) {
       setShowHint(false);
       setShowCorrectedAnswer(false);
+      QuestionApi.increaseStreak(question.id).then();
       formRef.current?.setFieldValue(InputName, '');
       onNext();
       return;
     }
+    QuestionApi.resetStreak(question.id).then();
     setShowCorrectedAnswer(true);
-  }, [onNext, question.answer]);
+  }, [onNext, question]);
 
   const onEnter = React.useCallback(
     (key: KeyboardEvent) => {
@@ -93,17 +102,26 @@ const QuestionPractice = ({ onNext, question }: IProps) => {
   return (
     <KFlex vertical>
       <KFlex>
-        <KButton icon={<FontAwesomeIcon icon={faVolumeHigh} />} onClick={onSpeak} />
-        <KButton icon={<FontAwesomeIcon icon={faQuestion} />} onClick={() => setShowHint(true)} />
+        <KButton
+          icon={<FontAwesomeIcon icon={faVolumeHigh} />}
+          onClick={onSpeak}
+        />
+        <KButton
+          icon={<FontAwesomeIcon icon={faLightbulb} />}
+          onClick={() => setShowHint(true)}
+        />
         <KButton icon={<FontAwesomeIcon icon={faCheck} />} onClick={onCheck} />
       </KFlex>
       <hr />
-      <Form ref={formRef}>
-        <Form.Item name={String(getUUID())}>
-          <Input ref={inputRef} autoComplete="off" />
-        </Form.Item>
-      </Form>
-      <div>{showHint && <div>{question.hint}</div>}</div>
+      <KFlex vertical>
+        <div>Streak: {question.streak}</div>
+        <Form ref={formRef}>
+          <Form.Item name={String(getUUID())}>
+            <Input ref={inputRef} autoComplete="off" />
+          </Form.Item>
+        </Form>
+        <div>{showHint && <div>{question.hint}</div>}</div>
+      </KFlex>
     </KFlex>
   );
 };

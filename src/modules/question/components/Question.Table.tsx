@@ -41,6 +41,13 @@ const QuestionTable = (props: IProps) => {
           ),
         },
         {
+          key: KTs.nameof<IQuestion>((e) => e.streak),
+          dataIndex: KTs.nameof<IQuestion>((e) => e.streak),
+          title: translate(
+            TranslationUtil.genCode<IQuestion>('Question', 'streak'),
+          ),
+        },
+        {
           width: 80,
           render: (rowData: IQuestion) => (
             <KFlex>
@@ -57,7 +64,7 @@ const QuestionTable = (props: IProps) => {
 
                   await query.refetchQueries({
                     queryKey: [QuestionQueryKey.List],
-                  })
+                  });
                 }}
               />
             </KFlex>

@@ -18,9 +18,12 @@ import RouterUtil from '~/utils/router.util';
 import QuestionTable from '~/modules/question/components/Question.Table';
 import { useParams, useRouter } from 'next/navigation';
 import QuestionImportModal from '~/modules/question/components/Question.Import.Modal';
+import { useQueryClient } from '@tanstack/react-query';
+import { QuestionQueryKey } from '~/modules/question/question.constant';
 
 const GroupDetailPage = () => {
   const { id } = useParams<{ id: string }>();
+  const query = useQueryClient();
   const router = useRouter();
   const { translate } = useKLanguageContext();
   const { handleApi } = useKClientContext();
@@ -37,13 +40,24 @@ const GroupDetailPage = () => {
   return (
     <KLoading is={isFetching}>
       <KFlex vertical>
-        <Flex>
+        <KFlex>
           <KButton
             onClick={() => router.push(RouterUtil.Question.genPractice(id))}
           >
             {translate(TranslationKey.Question.Practise_Button)}
           </KButton>
-        </Flex>
+          <KButton
+            onClick={async () => {
+              const data = await handleApi(GroupApi.resetStreak(id));
+              if (!data.success) return;
+              query.refetchQueries({
+                queryKey: [QuestionQueryKey.List],
+              }).then();
+            }}
+          >
+            {translate(TranslationKey.Question.ResetStreak_Button)}
+          </KButton>
+        </KFlex>
         <hr />
         <KForm initialValues={data?.result} onFinish={onSubmit}>
           <Form.Item

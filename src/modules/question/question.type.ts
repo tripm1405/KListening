@@ -6,6 +6,7 @@ export interface IQuestion extends IKEntity, KObj {
   speech: string | null;
   answer: string;
   hint: string | null;
+  streak: number;
   groupId: string;
 
   group: IGroup;

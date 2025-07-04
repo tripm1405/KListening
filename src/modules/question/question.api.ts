@@ -11,6 +11,8 @@ export const QuestionUrl = {
   genCreate: () => QuestionPrefix,
   genUpdate: (id: string) => `${QuestionPrefix}/${id}`,
   genDel: (id: string) => `${QuestionPrefix}/${id}`,
+  genResetStreak: (id: string) => `${QuestionPrefix}/${id}/reset-streak`,
+  genIncreaseStreak: (id: string) => `${QuestionPrefix}/${id}/increase-streak`,
 };
 
 const QuestionApi = {
@@ -52,6 +54,20 @@ const QuestionApi = {
       ...config,
       method: KApiMethod.DELETE,
       url: QuestionUrl.genDel(id),
+    });
+  },
+  resetStreak: (id: string, config?: Omit<IKReq, 'method' | 'url'>) => {
+    return AppApi.request({
+      ...config,
+      method: KApiMethod.POST,
+      url: QuestionUrl.genResetStreak(id),
+    });
+  },
+  increaseStreak: (id: string, config?: Omit<IKReq, 'method' | 'url'>) => {
+    return AppApi.request({
+      ...config,
+      method: KApiMethod.POST,
+      url: QuestionUrl.genIncreaseStreak(id),
     });
   },
 };

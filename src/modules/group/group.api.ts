@@ -10,6 +10,7 @@ export const GroupUrl = {
   genCreate: () => GroupPrefix,
   genUpdate: (id: string) => `${GroupPrefix}/${id}`,
   genDel: (id: string) => `${GroupPrefix}/${id}`,
+  genResetStreak: (id: string) => `${GroupPrefix}/${id}/reset-streak`,
   genQuestionImport: (id: string) => `${GroupPrefix}/${id}/questions/import`,
 };
 
@@ -45,6 +46,13 @@ const GroupApi = {
       ...config,
       method: KApiMethod.DELETE,
       url: GroupUrl.genDel(id),
+    });
+  },
+  resetStreak: (id: string, config?: Omit<IKReq, 'method' | 'url'>) => {
+    return AppApi.request<IGroup['id']>({
+      ...config,
+      method: KApiMethod.POST,
+      url: GroupUrl.genResetStreak(id),
     });
   },
   importQuestions: (id: string, config?: Omit<IKReq, 'method' | 'url'>) => {
