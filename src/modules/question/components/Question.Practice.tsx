@@ -92,7 +92,10 @@ const QuestionPractice = ({ onNext, question }: IProps) => {
         getSubmittedAnswer={() =>
           inputRef.current?.input?.value.toLowerCase().trim() || ''
         }
-        reAnswer={() => setShowCorrectedAnswer(false)}
+        reAnswer={() => {
+          setShowCorrectedAnswer(false);
+          onSpeak();
+        }}
       />
     );
   }

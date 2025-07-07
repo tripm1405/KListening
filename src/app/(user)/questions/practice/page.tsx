@@ -4,7 +4,10 @@ import React from 'react';
 import QuestionPractice from '~/modules/question/components/Question.Practice';
 import { useRouter } from 'next/navigation';
 import { useKQuery } from '@krotohmi/k-tanstack';
-import { Question_SteakMaximum, QuestionQueryKey } from '~/modules/question/question.constant';
+import {
+  Question_SteakMaximum,
+  QuestionQueryKey,
+} from '~/modules/question/question.constant';
 import QuestionApi from '~/modules/question/question.api';
 import { KLoading } from '@krotohmi/k-react';
 import useAppSP from '~/hooks/useAppSP';
@@ -30,6 +33,9 @@ const PractisePage = () => {
     // ToDo: KTs: shuffle
     return data?.result?.items?.sort(() => Math.random() - 0.5);
   }, [data]);
+  const question = React.useMemo(() => {
+    return questions?.[currentIndex];
+  }, [questions, currentIndex]);
 
   React.useEffect(() => {
     if (!data) return;
@@ -41,9 +47,9 @@ const PractisePage = () => {
 
   return (
     <KLoading is={isLoading}>
-      {questions?.[currentIndex] && (
+      {question && (
         <QuestionPractice
-          question={questions?.[currentIndex]}
+          question={question}
           onNext={() => setCurrentIndex(currentIndex + 1)}
         />
       )}

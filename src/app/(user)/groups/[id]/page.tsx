@@ -4,7 +4,7 @@ import React from 'react';
 import { useKQuery } from '@krotohmi/k-tanstack';
 import { GroupQueryKey } from '~/modules/group/group.constant';
 import GroupApi from '~/modules/group/group.api';
-import { Flex, Form, Input } from 'antd';
+import { Form, Input } from 'antd';
 import KTs from '@krotohmi/k-ts';
 import { IGroup } from '~/modules/group/group.type';
 import AppTranslationUtil, { TranslationKey } from '~/utils/translation.util';
@@ -50,9 +50,11 @@ const GroupDetailPage = () => {
             onClick={async () => {
               const data = await handleApi(GroupApi.resetStreak(id));
               if (!data.success) return;
-              query.refetchQueries({
-                queryKey: [QuestionQueryKey.List],
-              }).then();
+              query
+                .refetchQueries({
+                  queryKey: [QuestionQueryKey.List],
+                })
+                .then();
             }}
           >
             {translate(TranslationKey.Question.ResetStreak_Button)}
