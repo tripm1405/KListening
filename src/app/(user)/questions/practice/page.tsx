@@ -31,7 +31,10 @@ const PractisePage = () => {
 
   const questions = React.useMemo(() => {
     // ToDo: KTs: shuffle
-    return data?.result?.items?.sort(() => Math.random() - 0.5);
+    const questionOlds = data?.result?.items?.filter(e => e.streak === 1) || [];
+    const newAmount = Math.floor(questionOlds.length/3);
+    const questionNews = data?.result?.items?.filter(e => e.streak === 0) || [];
+    return [...[...questionOlds, ...questionNews.slice(0, newAmount)].sort(() => Math.random() - 0.5), ...questionNews.slice(newAmount)];
   }, [data]);
   const question = React.useMemo(() => {
     return questions?.[currentIndex];
