@@ -32,7 +32,7 @@ const QuestionPractice = ({ onNext, question }: IProps) => {
     const preSpeak = new SpeechSynthesisUtterance(' ');
     preSpeak.lang = 'en-US';
     preSpeak.onend = () => {
-      const utterance = new SpeechSynthesisUtterance(question.answer);
+      const utterance = new SpeechSynthesisUtterance(`||| ${question.answer}`);
       utterance.lang = 'en-US';
       window.speechSynthesis.speak(utterance);
     };
