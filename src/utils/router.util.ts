@@ -1,4 +1,6 @@
+import { KApiUtil } from '@krotohmi/k-api';
 import qs from 'qs';
+import { IQuestionListParams } from '~/modules/question/apis/question.list.type';
 
 function genDefaultCollectRoute(pre: string) {
   return {
@@ -18,10 +20,10 @@ const RouterUtil = {
       groupId
         ? `/questions/creation?${qs.stringify({ groupId: groupId })}`
         : '/questions/creation',
-    genPractice: (groupId?: string) =>
-      groupId
-        ? `/questions/practice?${qs.stringify({ groupId: groupId })}`
-        : '/questions/practice',
+    genPractice: (props?: { query?: IQuestionListParams }) => KApiUtil.genUrl({
+      ...props,
+      url: '/questions/practice',
+    }),
   },
 };
 

@@ -2,11 +2,11 @@ import React from 'react';
 import { KButton } from '@krotohmi/k-react';
 import { TranslationKey } from '~/utils/translation.util';
 import { Modal, Upload, UploadFile } from 'antd';
-import { useKClientContext, useKLanguageContext } from 'k-client';
+import { useKClientContext } from 'k-client';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInbox } from '@fortawesome/free-solid-svg-icons';
 import { KApiUtil } from '@krotohmi/k-api';
-import QuestionApi from '~/modules/question/question.api';
+import QuestionApi from '~/modules/question/apis/question.api';
 import GroupApi from '~/modules/group/group.api';
 import { useQueryClient } from '@tanstack/react-query';
 import { QuestionQueryKey } from '~/modules/question/question.constant';
@@ -17,8 +17,7 @@ interface IProps {
 
 const QuestionImportModal = (props: IProps) => {
   const query = useQueryClient();
-  const { translate } = useKLanguageContext();
-  const { handleApi } = useKClientContext();
+  const { handleApi, translate } = useKClientContext();
   const [fileList, setFileList] = React.useState<UploadFile[]>([]);
   const [showImportModal, setShowImportModal] = React.useState(false);
 

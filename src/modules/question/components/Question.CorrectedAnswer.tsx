@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react';
 import { KButton, KFlex } from '@krotohmi/k-react';
-import { useKLanguageContext } from 'k-client';
 import { TranslationKey } from '~/utils/translation.util';
 import { diffArrays } from 'diff';
+import { KTranslation } from 'k-client';
 
 interface IProps {
   getSubmittedAnswer: () => string;
@@ -15,7 +15,6 @@ const QuestionCorrectedAnswer = ({
   expectedAnswer,
   reAnswer
 }: IProps) => {
-  const { translate } = useKLanguageContext();
   const [transition, setTransition] = React.useState(false);
 
   const onEnter = React.useCallback(
@@ -71,7 +70,7 @@ const QuestionCorrectedAnswer = ({
     <KFlex vertical>
       <KFlex>
         <KButton onClick={reAnswer}>
-          {translate(TranslationKey.Question.ReAnswer_Button)}
+          <KTranslation code={TranslationKey.Question.ReAnswer_Button} />
         </KButton>
       </KFlex>
       <hr />

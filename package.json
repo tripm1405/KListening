@@ -9,19 +9,21 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@krotohmi/k-api": "^1.0.4",
-    "@krotohmi/k-react": "^1.0.4",
-    "@krotohmi/k-tanstack": "^1.0.4",
-    "@krotohmi/k-ts": "^1.0.4",
-    "k-client": "file:tars/k-client-1.0.7.tgz",
+    "@krotohmi/k-api": "^1.0.10",
+    "@krotohmi/k-react": "^1.0.7",
+    "@krotohmi/k-tanstack": "^1.0.6",
+    "@krotohmi/k-ts": "^1.0.6",
     "clsx": "^2.1.1",
     "diff": "^8.0.2",
+    "k-client": "file:tars/k-client-1.0.14.tgz",
+    "lodash": "^4.17.21",
     "next": "14.2.30",
     "qs": "^6.14.0",
     "react": "^18",
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@types/lodash": "^4.17.20",
     "@types/node": "^20",
     "@types/qs": "^6.14.0",
     "@types/react": "^18",

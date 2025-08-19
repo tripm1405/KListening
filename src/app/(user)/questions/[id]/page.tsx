@@ -6,15 +6,14 @@ import { Form, Input } from 'antd';
 import KTs from '@krotohmi/k-ts';
 import { IQuestion } from '~/modules/question/question.type';
 import AppTranslationUtil from '~/utils/translation.util';
-import { useKClientContext, useKLanguageContext } from 'k-client';
+import { KTranslation, useKClientContext } from 'k-client';
 import { useKQuery } from '@krotohmi/k-tanstack';
 import { QuestionQueryKey } from '~/modules/question/question.constant';
-import QuestionApi from '~/modules/question/question.api';
+import QuestionApi from '~/modules/question/apis/question.api';
 import { useParams } from 'next/navigation';
 
 const QuestionDetailPage = () => {
   const { id } = useParams<{ id: string }>();
-  const { translate } = useKLanguageContext();
   const { handleApi } = useKClientContext();
 
   const { data, isLoading } = useKQuery({
@@ -33,17 +32,13 @@ const QuestionDetailPage = () => {
       <KForm initialValues={data?.result} onFinish={onSubmit}>
         <Form.Item
           name={KTs.nameof<IQuestion>((e) => e.answer)}
-          label={translate(
-            AppTranslationUtil.genCode<IQuestion>('Question', 'answer'),
-          )}
+          label={<KTranslation code={AppTranslationUtil.genCode<IQuestion>('Question', 'answer')} />}
         >
           <Input />
         </Form.Item>
         <Form.Item
           name={KTs.nameof<IQuestion>((e) => e.hint)}
-          label={translate(
-            AppTranslationUtil.genCode<IQuestion>('Question', 'hint'),
-          )}
+          label={<KTranslation code={AppTranslationUtil.genCode<IQuestion>('Question', 'hint')} />}
         >
           <Input />
         </Form.Item>

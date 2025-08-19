@@ -13,7 +13,7 @@ import {
   faLightbulb,
   faVolumeHigh,
 } from '@fortawesome/free-solid-svg-icons';
-import QuestionApi from '~/modules/question/question.api';
+import QuestionApi from '~/modules/question/apis/question.api';
 
 const InputName = String(getUUID());
 
@@ -32,7 +32,7 @@ const QuestionPractice = ({ onNext, question }: IProps) => {
     const preSpeak = new SpeechSynthesisUtterance(' ');
     preSpeak.lang = 'en-US';
     preSpeak.onend = () => {
-      const utterance = new SpeechSynthesisUtterance(`||| ${question.answer}`);
+      const utterance = new SpeechSynthesisUtterance(`${question.answer}`);
       utterance.lang = 'en-US';
       window.speechSynthesis.speak(utterance);
     };
@@ -55,19 +55,20 @@ const QuestionPractice = ({ onNext, question }: IProps) => {
     setShowCorrectedAnswer(true);
   }, [onNext, question]);
 
-  const onEnter = React.useCallback(
-    (key: KeyboardEvent) => {
-      if (key.key === 'Enter') {
-        onCheck();
-      }
-    },
-    [onCheck],
-  );
-
   const onSpeak = React.useCallback(() => {
     window.speechSynthesis.cancel();
     window.speechSynthesis.speak(utterance);
   }, [utterance]);
+
+  const onKeyDown = React.useCallback(
+    (e: KeyboardEvent) => {
+      console.log('e', e);
+      if (e.key === 'Enter') {
+        onCheck();
+      }
+    },
+    [onCheck, onSpeak],
+  );
 
   React.useEffect(() => {
     onSpeak();
@@ -78,12 +79,13 @@ const QuestionPractice = ({ onNext, question }: IProps) => {
   }, [inputRef, showHint, showCorrectedAnswer]);
 
   React.useEffect(() => {
-    window.addEventListener('keypress', onEnter);
+    window.removeEventListener('keydown', onKeyDown);
+    window.addEventListener('keydown', onKeyDown);
 
     return () => {
-      window.removeEventListener('keypress', onEnter);
+      window.removeEventListener('keydown', onKeyDown);
     };
-  }, [onEnter]);
+  }, [onKeyDown]);
 
   if (showCorrectedAnswer) {
     return (

@@ -1,6 +1,7 @@
-import { IKListReq, IKReq, KApiMethod } from '@krotohmi/k-api';
+import { IKListReq, IKListResult, IKReq, KApiMethod } from '@krotohmi/k-api';
 import { IQuestion} from '~/modules/question/question.type';
 import AppApi from '~/app.api';
+import { IQuestionListParams } from '~/modules/question/apis/question.list.type';
 
 export const QuestionPrefix = '/questions';
 
@@ -16,8 +17,8 @@ export const QuestionUrl = {
 };
 
 const QuestionApi = {
-  list: (config?: Omit<IKListReq, 'method' | 'url'>) => {
-    return AppApi.list<IQuestion>({
+  list: async (config?: Omit<IKReq<IKListResult<IQuestion>, IQuestionListParams>, 'method' | 'url'>) => {
+    return await AppApi.list<IQuestion>({
       ...config,
       url: QuestionUrl.genList(),
     });

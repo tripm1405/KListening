@@ -10,9 +10,9 @@ import { IGroup } from '~/modules/group/group.type';
 import AppTranslationUtil, { TranslationKey } from '~/utils/translation.util';
 import { KButton, KFlex, KForm, KLoading } from '@krotohmi/k-react';
 import {
+  KTranslation,
   KTranslationKey,
   useKClientContext,
-  useKLanguageContext,
 } from 'k-client';
 import RouterUtil from '~/utils/router.util';
 import QuestionTable from '~/modules/question/components/Question.Table';
@@ -20,12 +20,12 @@ import { useParams, useRouter } from 'next/navigation';
 import QuestionImportModal from '~/modules/question/components/Question.Import.Modal';
 import { useQueryClient } from '@tanstack/react-query';
 import { QuestionQueryKey } from '~/modules/question/question.constant';
+import QuestionPractiseFilterModal from '~/modules/question/components/Question.PractiseFilter.Modal';
 
 const GroupDetailPage = () => {
   const { id } = useParams<{ id: string }>();
   const query = useQueryClient();
   const router = useRouter();
-  const { translate } = useKLanguageContext();
   const { handleApi } = useKClientContext();
 
   const { data, isFetching } = useKQuery({
@@ -41,11 +41,7 @@ const GroupDetailPage = () => {
     <KLoading is={isFetching}>
       <KFlex vertical>
         <KFlex>
-          <KButton
-            onClick={() => router.push(RouterUtil.Question.genPractice(id))}
-          >
-            {translate(TranslationKey.Question.Practise_Button)}
-          </KButton>
+          <QuestionPractiseFilterModal groupId={id} />
           <KButton
             onClick={async () => {
               const data = await handleApi(GroupApi.resetStreak(id));
@@ -57,22 +53,20 @@ const GroupDetailPage = () => {
                 .then();
             }}
           >
-            {translate(TranslationKey.Question.ResetStreak_Button)}
+            <KTranslation code={TranslationKey.Question.ResetStreak_Button} />
           </KButton>
         </KFlex>
         <hr />
         <KForm initialValues={data?.result} onFinish={onSubmit}>
           <Form.Item
             name={KTs.nameof<IGroup>((e) => e.name)}
-            label={translate(
-              AppTranslationUtil.genCode<IGroup>('Group', 'name'),
-            )}
+            label={<KTranslation code={AppTranslationUtil.genCode<IGroup>('Group', 'name')} />}
           >
             <Input />
           </Form.Item>
           <Form.Item>
             <KButton htmlType={'submit'}>
-              {translate(KTranslationKey.Save)}
+              <KTranslation code={KTranslationKey.Save} />
             </KButton>
           </Form.Item>
         </KForm>

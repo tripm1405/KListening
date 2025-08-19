@@ -8,13 +8,12 @@ import KTs from '@krotohmi/k-ts';
 import { IGroup } from '~/modules/group/group.type';
 import { useRouter } from 'next/navigation';
 import RouterUtil from '~/utils/router.util';
-import { useKClientContext, useKLanguageContext } from 'k-client';
+import { KTranslation, useKClientContext } from 'k-client';
 import TranslationUtil from '~/utils/translation.util';
 import { useQueryClient } from '@tanstack/react-query';
 
 const GroupListPage = () => {
   const router = useRouter();
-  const { translate } = useKLanguageContext();
   const { handleApi } = useKClientContext();
   const query = useQueryClient();
 
@@ -46,7 +45,11 @@ const GroupListPage = () => {
           {
             key: KTs.nameof<IGroup>((e) => e.name),
             dataIndex: KTs.nameof<IGroup>((e) => e.name),
-            title: translate(TranslationUtil.genCode<IGroup>('Group', 'name')),
+            title: (
+              <KTranslation
+                code={TranslationUtil.genCode<IGroup>('Group', 'name')}
+              />
+            ),
           },
           {
             width: 80,
