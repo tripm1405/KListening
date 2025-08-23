@@ -2,7 +2,7 @@
 
 import React, { useMemo } from 'react';
 import { IQuestion } from '~/modules/question/question.type';
-import { Button, Form, Input, InputRef } from 'antd';
+import { Form, Input, InputRef } from 'antd';
 import { KButton, KFlex } from '@krotohmi/k-react';
 import QuestionCorrectedAnswer from '~/modules/question/components/Question.CorrectedAnswer';
 import { getUUID } from 'rc-select/es/hooks/useId';
@@ -40,12 +40,14 @@ const QuestionPractice = ({ onNext, question }: IProps) => {
   }, [question]);
 
   const onCheck = React.useCallback(() => {
-    const userAnswer = formRef.current?.getFieldValue(InputName)?.toLowerCase()?.trim();
+    const userAnswer = formRef.current
+      ?.getFieldValue(InputName)
+      ?.toLowerCase()
+      ?.trim();
     const correctedAnswer = question.answer.toLowerCase().trim();
 
     if (userAnswer === correctedAnswer) {
       setShowHint(false);
-      setShowCorrectedAnswer(false);
       QuestionApi.increaseStreak(question.id).then();
       formRef.current?.setFieldValue(InputName, '');
       onNext();
@@ -118,7 +120,7 @@ const QuestionPractice = ({ onNext, question }: IProps) => {
       <KFlex vertical>
         <div>Streak: {question.streak}</div>
         <Form ref={formRef}>
-          <Form.Item name={String(getUUID())}>
+          <Form.Item name={InputName}>
             <Input ref={inputRef} autoComplete="off" />
           </Form.Item>
         </Form>
