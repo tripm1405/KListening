@@ -2,7 +2,7 @@
 
 import React, { useMemo } from 'react';
 import { IQuestion } from '~/modules/question/question.type';
-import { Form, Input, InputRef } from 'antd';
+import { Button, Form, Input, InputRef } from 'antd';
 import { KButton, KFlex } from '@krotohmi/k-react';
 import QuestionCorrectedAnswer from '~/modules/question/components/Question.CorrectedAnswer';
 import { getUUID } from 'rc-select/es/hooks/useId';
@@ -40,7 +40,7 @@ const QuestionPractice = ({ onNext, question }: IProps) => {
   }, [question]);
 
   const onCheck = React.useCallback(() => {
-    const userAnswer = inputRef.current?.input?.value.toLowerCase().trim();
+    const userAnswer = formRef.current?.getFieldValue(InputName)?.toLowerCase()?.trim();
     const correctedAnswer = question.answer.toLowerCase().trim();
 
     if (userAnswer === correctedAnswer) {
@@ -62,12 +62,11 @@ const QuestionPractice = ({ onNext, question }: IProps) => {
 
   const onKeyDown = React.useCallback(
     (e: KeyboardEvent) => {
-      console.log('e', e);
-      if (e.key === 'Enter') {
+      if (e.code === 'Enter' || e.code === 'NumpadEnter') {
         onCheck();
       }
     },
-    [onCheck, onSpeak],
+    [onCheck],
   );
 
   React.useEffect(() => {

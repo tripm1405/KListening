@@ -49,6 +49,11 @@ const PractisePage = () => {
     return questions?.[currentIndex];
   }, [questions, currentIndex]);
 
+  const onNext = React.useCallback(
+    () => setCurrentIndex((i) => i + 1),
+    [setCurrentIndex],
+  );
+
   React.useEffect(() => {
     if (!data) return;
     if (currentIndex < data?.result?.items.length) return;
@@ -59,12 +64,7 @@ const PractisePage = () => {
 
   return (
     <KLoading is={isLoading}>
-      {question && (
-        <QuestionPractice
-          question={question}
-          onNext={() => setCurrentIndex(currentIndex + 1)}
-        />
-      )}
+      {question && <QuestionPractice question={question} onNext={onNext} />}
     </KLoading>
   );
 };

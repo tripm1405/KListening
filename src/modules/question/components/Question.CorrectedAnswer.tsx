@@ -15,6 +15,7 @@ const QuestionCorrectedAnswer = ({
   expectedAnswer,
   reAnswer
 }: IProps) => {
+  const [loading, setLoading] = React.useState(true);
   const [transition, setTransition] = React.useState(false);
 
   const onEnter = React.useCallback(
@@ -27,12 +28,21 @@ const QuestionCorrectedAnswer = ({
   );
 
   React.useEffect(() => {
+    if (loading) return;
+
+    window.removeEventListener('keypress', onEnter);
     window.addEventListener('keypress', onEnter);
 
     return () => {
       window.removeEventListener('keypress', onEnter);
     };
-  }, [onEnter]);
+  }, [onEnter, loading]);
+
+  React.useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  }, [])
 
   const diff = useMemo(() => {
     const wordsDiff = diffArrays(
@@ -69,7 +79,7 @@ const QuestionCorrectedAnswer = ({
   return (
     <KFlex vertical>
       <KFlex>
-        <KButton onClick={reAnswer}>
+        <KButton onClick={reAnswer} disabled={loading}>
           <KTranslation code={TranslationKey.Question.ReAnswer_Button} />
         </KButton>
       </KFlex>
