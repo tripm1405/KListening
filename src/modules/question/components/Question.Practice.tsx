@@ -3,7 +3,7 @@
 import React, { useMemo } from 'react';
 import { IQuestion } from '~/modules/question/question.type';
 import { Form, Input, InputRef } from 'antd';
-import { KButton, KFlex } from '@krotohmi/k-react';
+import { KButton, KFlex } from '@krotohmi/react';
 import QuestionCorrectedAnswer from '~/modules/question/components/Question.CorrectedAnswer';
 import { getUUID } from 'rc-select/es/hooks/useId';
 import { FormRef } from 'rc-field-form';

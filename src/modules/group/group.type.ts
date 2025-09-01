@@ -1,12 +1,11 @@
-import { IKEntity } from '@krotohmi/k-api';
 import { IQuestion } from '~/modules/question/question.type';
-import { KObj } from '@krotohmi/k-ts';
+import { IKUser } from '@krotohmi/client';
 
-export interface IGroup extends IKEntity, KObj {
+export interface IGroup {
+  id: string;
   name: string;
   userId: string;
 
   questions: IQuestion[];
-  // ToDo: KClient
-  // user: IKUser;
+  user: IKUser;
 }

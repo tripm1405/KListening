@@ -1,11 +1,10 @@
 import React from 'react';
-import { KButton } from '@krotohmi/k-react';
+import { KButton } from '@krotohmi/react';
 import { TranslationKey } from '~/utils/translation.util';
 import { Modal, Upload, UploadFile } from 'antd';
-import { useKClientContext } from 'k-client';
+import KClient from '@krotohmi/client';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInbox } from '@fortawesome/free-solid-svg-icons';
-import { KApiUtil } from '@krotohmi/k-api';
 import QuestionApi from '~/modules/question/apis/question.api';
 import GroupApi from '~/modules/group/group.api';
 import { useQueryClient } from '@tanstack/react-query';
@@ -17,7 +16,7 @@ interface IProps {
 
 const QuestionImportModal = (props: IProps) => {
   const query = useQueryClient();
-  const { handleApi, translate } = useKClientContext();
+  const { handleApi, translate } = KClient.useContext();
   const [fileList, setFileList] = React.useState<UploadFile[]>([]);
   const [showImportModal, setShowImportModal] = React.useState(false);
 
@@ -37,12 +36,11 @@ const QuestionImportModal = (props: IProps) => {
           multiple={false}
           accept={'.csv'}
           customRequest={async ({ file }) => {
+            const form = new FormData();
+            form.set('file', file);
+
             const config = {
-              data: KApiUtil.genFormData({
-                data: {
-                  file: file,
-                },
-              }),
+              data: form,
               headers: {
                 'Content-Type': 'multipart/form-data',
               },

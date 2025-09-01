@@ -1,19 +1,18 @@
 'use client';
 
 import React from 'react';
-import { useKQuery } from '@krotohmi/k-tanstack';
+import KTanstack from '@krotohmi/tanstack';
 import { GroupQueryKey } from '~/modules/group/group.constant';
 import GroupApi from '~/modules/group/group.api';
 import { Form, Input } from 'antd';
-import KTs from '@krotohmi/k-ts';
+import KTs from '@krotohmi/ts';
 import { IGroup } from '~/modules/group/group.type';
 import AppTranslationUtil, { TranslationKey } from '~/utils/translation.util';
-import { KButton, KFlex, KForm, KLoading } from '@krotohmi/k-react';
-import {
+import { KButton, KFlex, KForm, KLoading } from '@krotohmi/react';
+import KClient, {
   KTranslation,
   KTranslationKey,
-  useKClientContext,
-} from 'k-client';
+} from '@krotohmi/client';
 import RouterUtil from '~/utils/router.util';
 import QuestionTable from '~/modules/question/components/Question.Table';
 import { useParams, useRouter } from 'next/navigation';
@@ -26,9 +25,9 @@ const GroupDetailPage = () => {
   const { id } = useParams<{ id: string }>();
   const query = useQueryClient();
   const router = useRouter();
-  const { handleApi } = useKClientContext();
+  const { handleApi } = KClient.useContext();
 
-  const { data, isFetching } = useKQuery({
+  const { data, isFetching } = KTanstack.useApi({
     queryKey: [GroupQueryKey.Detail, id],
     queryFn: () => GroupApi.detail(id),
   });
@@ -57,7 +56,7 @@ const GroupDetailPage = () => {
           </KButton>
         </KFlex>
         <hr />
-        <KForm initialValues={data?.result} onFinish={onSubmit}>
+        <KForm initialValues={data?.data} onFinish={onSubmit}>
           <Form.Item
             name={KTs.nameof<IGroup>((e) => e.name)}
             label={<KTranslation code={AppTranslationUtil.genCode<IGroup>('Group', 'name')} />}

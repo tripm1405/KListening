@@ -1,6 +1,6 @@
 import axios from 'axios';
 import qs from 'qs';
-import KApi from '@krotohmi/k-api';
+import KAxios from '@krotohmi/axios';
 import { ApiDomain } from '~/app.config';
 
 const AxiosInstance = axios.create({
@@ -14,6 +14,6 @@ const AxiosInstance = axios.create({
   },
 });
 
-const AppApi = new KApi(AxiosInstance);
+const AppApi = new KAxios(AxiosInstance);
 
 export default AppApi;

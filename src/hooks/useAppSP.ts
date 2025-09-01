@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSearchParams } from 'next/navigation';
-import { KObj } from '@krotohmi/k-ts';
+import { KObj } from '@krotohmi/ts';
 
 type Primitive = string | number | boolean | bigint | symbol | null | undefined;
 

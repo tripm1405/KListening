@@ -1,19 +1,19 @@
 'use client';
 
 import React from 'react';
-import { KButton, KForm } from '@krotohmi/k-react';
+import { KButton, KForm } from '@krotohmi/react';
 import { Form, Input } from 'antd';
-import KTs from '@krotohmi/k-ts';
+import KTs from '@krotohmi/ts';
 import { IGroup } from '~/modules/group/group.type';
 import AppTranslationUtil from '~/utils/translation.util';
 import { useRouter } from 'next/navigation';
-import { KTranslation, KTranslationKey, useKClientContext } from 'k-client';
+import KClient, { KTranslation, KTranslationKey } from '@krotohmi/client';
 import GroupApi from '~/modules/group/group.api';
 import RouterUtil from '~/utils/router.util';
 
 const GroupCreationPage = () => {
   const router = useRouter();
-  const { handleApi } = useKClientContext();
+  const { handleApi } = KClient.useContext();
 
   const onSubmit = async (values: IGroup) => {
     const data = await handleApi(GroupApi.create({
@@ -21,8 +21,9 @@ const GroupCreationPage = () => {
     }));
 
     if (!data.success) return;
+    if (!data.data) return;
 
-    router.push(RouterUtil.Group.genDetail(data.result));
+    router.push(RouterUtil.Group.genDetail(data.data));
   };
 
   return (

@@ -1,4 +1,4 @@
-import { KObj } from '@krotohmi/k-ts';
+import { KObj } from '@krotohmi/ts';
 
 export const TranslationKey = {
   Group: {},
@@ -18,7 +18,7 @@ function capitalizeFirstLetter(str: string) {
 }
 
 const AppTranslationUtil = {
-  genCode: <T extends KObj>(pre: string, key: keyof T) => {
+  genCode: <T extends object>(pre: string, key: keyof T) => {
     return `${capitalizeFirstLetter(pre)}_${capitalizeFirstLetter(String(key))}`;
   },
 };

@@ -1,10 +1,10 @@
 import React from 'react';
-import { KButton } from '@krotohmi/k-react';
+import { KButton } from '@krotohmi/react';
 import { Form, Input, Modal } from 'antd';
 import { TranslationKey } from '~/utils/translation.util';
-import { KTranslation } from 'k-client';
+import { KTranslation } from '@krotohmi/client';
 import { useRouter } from 'next/navigation';
-import KTs from '@krotohmi/k-ts';
+import KTs from '@krotohmi/ts';
 import { IQuestionListParams } from '~/modules/question/apis/question.list.type';
 import RouterUtil from '~/utils/router.util';
 

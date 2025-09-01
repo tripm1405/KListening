@@ -3,14 +3,14 @@
 import React from 'react';
 import QuestionPractice from '~/modules/question/components/Question.Practice';
 import { useRouter } from 'next/navigation';
-import { useKQuery } from '@krotohmi/k-tanstack';
+import KTanstack from '@krotohmi/tanstack';
 import { QuestionQueryKey } from '~/modules/question/question.constant';
 import QuestionApi from '~/modules/question/apis/question.api';
-import { KLoading } from '@krotohmi/k-react';
+import { KLoading } from '@krotohmi/react';
 import useAppSP from '~/hooks/useAppSP';
 import RouterUtil from '~/utils/router.util';
 import { IQuestionListParams } from '~/modules/question/apis/question.list.type';
-import KTs from '@krotohmi/k-ts';
+import KTs from '@krotohmi/ts';
 
 const PractisePage = () => {
   const query = useAppSP<NonNullable<IQuestionListParams['filters']>>(
@@ -25,7 +25,7 @@ const PractisePage = () => {
   const router = useRouter();
   const [currentIndex, setCurrentIndex] = React.useState(0);
 
-  const { data, isLoading } = useKQuery({
+  const { data, isLoading } = KTanstack.useApi({
     queryKey: [QuestionQueryKey.List, query],
     queryFn: () =>
       QuestionApi.list({
@@ -36,10 +36,10 @@ const PractisePage = () => {
   });
 
   const questions = React.useMemo(() => {
-    const questionOlds = data?.result?.items?.filter((e) => e.streak > 0) || [];
+    const questionOlds = data?.data?.items?.filter((e) => e.streak > 0) || [];
     const newAmount = Math.floor(questionOlds.length / 3);
     const questionNews =
-      data?.result?.items?.filter((e) => e.streak === 0) || [];
+      data?.data?.items?.filter((e) => e.streak === 0) || [];
     return [
       ...KTs.shuffle([...questionOlds, ...questionNews.slice(0, newAmount)]),
       ...questionNews.slice(newAmount),
@@ -56,7 +56,7 @@ const PractisePage = () => {
 
   React.useEffect(() => {
     if (!data) return;
-    if (currentIndex < data?.result?.items.length) return;
+    if (currentIndex < Number(data?.data?.items?.length)) return;
     if (query?.groupId) {
       router.push(RouterUtil.Group.genDetail(query.groupId));
     }

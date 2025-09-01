@@ -1,30 +1,29 @@
 import React from 'react';
-import KTs from '@krotohmi/k-ts';
-import { KButton, KFlex, KPagination } from '@krotohmi/k-react';
+import KTs from '@krotohmi/ts';
+import { KButton, KFlex, KPagination } from '@krotohmi/react';
 import RouterUtil from '~/utils/router.util';
 import { QuestionQueryKey } from '~/modules/question/question.constant';
 import QuestionApi from '~/modules/question/apis/question.api';
 import { IQuestion } from '~/modules/question/question.type';
 import { IGroup } from '~/modules/group/group.type';
-import { KTranslation, useKClientContext } from 'k-client';
+import KClient, { KTranslation } from '@krotohmi/client';
 import TranslationUtil from '~/utils/translation.util';
 import { useRouter } from 'next/navigation';
 import { useQueryClient } from '@tanstack/react-query';
 import { Table } from 'antd';
-import { IKListPaginationParams, KListPaginationParams } from '@krotohmi/k-api';
-import { useKListQuery } from '@krotohmi/k-tanstack';
+import KTanstack from '@krotohmi/tanstack';
+import { IKApiQueryPagination, KApiQueryPagination } from '@krotohmi/api';
 
 interface IProps {
   groupId?: IGroup['id'];
 }
 
 const QuestionTable = (props: IProps) => {
-  const [pagination, setPagination] = React.useState<IKListPaginationParams>(
-    KListPaginationParams,
-  );
+  const [pagination, setPagination] =
+    React.useState<IKApiQueryPagination>(KApiQueryPagination);
   const router = useRouter();
   const query = useQueryClient();
-  const { handleApi } = useKClientContext();
+  const { handleApi } = KClient.useContext();
 
   const params = React.useMemo(() => {
     return {
@@ -35,7 +34,7 @@ const QuestionTable = (props: IProps) => {
     };
   }, [pagination, props.groupId]);
 
-  const { data } = useKListQuery({
+  const { data } = KTanstack.useApi({
     queryKey: [QuestionQueryKey.List, params],
     queryFn: () =>
       QuestionApi.list({
@@ -46,7 +45,7 @@ const QuestionTable = (props: IProps) => {
   return (
     <KFlex vertical>
       <Table
-        dataSource={data?.result?.items}
+        dataSource={data?.data?.items}
         key={'id'}
         columns={[
           {
@@ -90,11 +89,12 @@ const QuestionTable = (props: IProps) => {
               </KFlex>
             ),
           },
-        ]} />
+        ]}
+      />
       <KPagination
-        current={data?.result?.page}
-        pageSize={data?.result?.size}
-        total={data?.result?.total}
+        current={data?.data?.page}
+        pageSize={data?.data?.size}
+        total={data?.data?.total}
         onChange={(page: number, size: number) => {
           setPagination({
             page: page,

@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react';
-import { KButton, KFlex } from '@krotohmi/k-react';
+import { KButton, KFlex } from '@krotohmi/react';
 import { TranslationKey } from '~/utils/translation.util';
 import { diffArrays } from 'diff';
-import { KTranslation } from 'k-client';
+import { KTranslation } from '@krotohmi/client';
 
 interface IProps {
   getSubmittedAnswer: () => string;

@@ -1,4 +1,4 @@
-import { KObj } from '@krotohmi/k-ts';
+import { KObj } from '@krotohmi/ts';
 
 export interface IQuestionListParams extends KObj {
   pagination?: {

@@ -1,8 +1,7 @@
-import { IKEntity } from '@krotohmi/k-api';
 import { IGroup } from '~/modules/group/group.type';
-import { KObj } from '@krotohmi/k-ts';
 
-export interface IQuestion extends IKEntity, KObj {
+export interface IQuestion {
+  id: string;
   speech: string | null;
   answer: string;
   hint: string | null;
