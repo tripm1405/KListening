@@ -26,12 +26,11 @@ const UserLayout = ({ children }: ILayoutProps) => {
       <KLayout
         header={{
           actions: [
-            // ToDo: remove key
             <KLayout.UserButton
               key={0}
               items={[]}
-              signOutSuccess={() => router.push(RouterUtil.genHome())}
-              onClick={() => {}}
+              onSignOut={() => router.push(RouterUtil.genHome())}
+              onSignIn={() => router.push(RouterUtil.genSignIn())}
             />,
             <KLayout.LanguageButton key={1} />,
           ],

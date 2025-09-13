@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import KClient, { KTranslation, KTranslationKey } from '@krotohmi/client';
+import KClient, { KTranslation, KTransKey } from '@krotohmi/client';
 import { KButton, KForm } from '@krotohmi/react';
 import { Form, Input } from 'antd';
 import KTs from '@krotohmi/ts';
@@ -14,10 +14,10 @@ import useAppSP from '~/hooks/useAppSP';
 const QuestionCreationPage = () => {
   const { groupId } = useAppSP((data) => data);
   const router = useRouter();
-  const { handleApi } = KClient.useContext();
+  const { onApi } = KClient.useContext();
 
   const onSubmit = async (values: IQuestion) => {
-    const data = await handleApi(QuestionApi.create({
+    const data = await onApi(QuestionApi.create({
       data: {
         ...values,
         answer: values.answer.trim().toLowerCase(),
@@ -45,7 +45,7 @@ const QuestionCreationPage = () => {
         <Input />
       </Form.Item>
       <Form.Item>
-        <KButton htmlType={'submit'}>{<KTranslation code={KTranslationKey.Save} />}</KButton>
+        <KButton htmlType={'submit'}>{<KTranslation code={KTransKey.Save} />}</KButton>
       </Form.Item>
     </KForm>
   );

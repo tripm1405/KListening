@@ -14,11 +14,11 @@ import { useQueryClient } from '@tanstack/react-query';
 
 const GroupListPage = () => {
   const router = useRouter();
-  const { handleApi } = KClient.useContext();
+  const { onApi } = KClient.useContext();
   const query = useQueryClient();
 
   const callDel = async (id: string) => {
-    const data = await handleApi(GroupApi.del(id));
+    const data = await onApi(GroupApi.del(id));
 
     if (!data.success) return;
 

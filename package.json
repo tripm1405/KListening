@@ -9,12 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@krotohmi/ts": "^1.0.9",
-    "@krotohmi/api": "^1.0.8",
-    "@krotohmi/axios": "^1.0.6",
-    "@krotohmi/client": "file:tars/krotohmi-client-1.0.2.tgz",
-    "@krotohmi/react": "^1.0.2",
-    "@krotohmi/tanstack": "^1.0.4",
+    "@krotohmi/client": "file:tars/krotohmi-client-1.0.6.tgz",
+    "@krotohmi/ts": "^1.0.14",
+    "@krotohmi/api": "^1.0.14",
+    "@krotohmi/axios": "^1.0.7",
+    "@krotohmi/react": "^1.0.8",
+    "@krotohmi/tanstack": "^1.0.5",
     "clsx": "^2.1.1",
     "diff": "^8.0.2",
     "lodash": "^4.17.21",

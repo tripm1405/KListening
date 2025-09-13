@@ -11,7 +11,7 @@ import AppTranslationUtil, { TranslationKey } from '~/utils/translation.util';
 import { KButton, KFlex, KForm, KLoading } from '@krotohmi/react';
 import KClient, {
   KTranslation,
-  KTranslationKey,
+  KTransKey,
 } from '@krotohmi/client';
 import RouterUtil from '~/utils/router.util';
 import QuestionTable from '~/modules/question/components/Question.Table';
@@ -25,7 +25,7 @@ const GroupDetailPage = () => {
   const { id } = useParams<{ id: string }>();
   const query = useQueryClient();
   const router = useRouter();
-  const { handleApi } = KClient.useContext();
+  const { onApi } = KClient.useContext();
 
   const { data, isFetching } = KTanstack.useApi({
     queryKey: [GroupQueryKey.Detail, id],
@@ -33,7 +33,7 @@ const GroupDetailPage = () => {
   });
 
   const onSubmit = async (values: IGroup) => {
-    await handleApi(GroupApi.update(id, { data: values }));
+    await onApi(GroupApi.update(id, { data: values }));
   };
 
   return (
@@ -43,7 +43,7 @@ const GroupDetailPage = () => {
           <QuestionPractiseFilterModal groupId={id} />
           <KButton
             onClick={async () => {
-              const data = await handleApi(GroupApi.resetStreak(id));
+              const data = await onApi(GroupApi.resetStreak(id));
               if (!data.success) return;
               query
                 .refetchQueries({
@@ -65,7 +65,7 @@ const GroupDetailPage = () => {
           </Form.Item>
           <Form.Item>
             <KButton htmlType={'submit'}>
-              <KTranslation code={KTranslationKey.Save} />
+              <KTranslation code={KTransKey.Save} />
             </KButton>
           </Form.Item>
         </KForm>

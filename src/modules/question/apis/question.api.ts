@@ -1,8 +1,7 @@
-import { IKApiListData, IKApiListResult, KApiMethod } from '@krotohmi/api';
-import { IQuestion} from '~/modules/question/question.type';
+import { EKMethod } from '@krotohmi/api';
+import { IQuestion } from '~/modules/question/question.type';
 import AppApi from '~/app.api';
-import { IQuestionListParams } from '~/modules/question/apis/question.list.type';
-import { IKAxiosReq } from '@krotohmi/axios';
+import { IKReq } from '@krotohmi/axios';
 
 export const QuestionPrefix = '/questions';
 
@@ -18,57 +17,57 @@ export const QuestionUrl = {
 };
 
 const QuestionApi = {
-  list: async (config?: Omit<IKAxiosReq, 'method' | 'url'>) => {
+  list: async (config?: Omit<IKReq, 'method' | 'url'>) => {
     return await AppApi.list<IQuestion>({
       ...config,
       url: QuestionUrl.genList(),
     });
   },
-  detail: (id: string, config?: Omit<IKAxiosReq, 'method' | 'url'>) => {
+  detail: (id: string, config?: Omit<IKReq, 'method' | 'url'>) => {
     return AppApi.list<IQuestion>({
       ...config,
       url: QuestionUrl.genDetail(id),
     });
   },
-  import: (config?: Omit<IKAxiosReq, 'method' | 'url'>) => {
+  import: (config?: Omit<IKReq, 'method' | 'url'>) => {
     return AppApi.api({
       ...config,
-      method: KApiMethod.POST,
+      method: EKMethod.POST,
       url: QuestionUrl.genImport(),
     });
   },
-  create: (config?: Omit<IKAxiosReq, 'method' | 'url'>) => {
+  create: (config?: Omit<IKReq, 'method' | 'url'>) => {
     return AppApi.api({
       ...config,
-      method: KApiMethod.POST,
+      method: EKMethod.POST,
       url: QuestionUrl.genCreate(),
     });
   },
-  update: (id: string, config?: Omit<IKAxiosReq, 'method' | 'url'>) => {
+  update: (id: string, config?: Omit<IKReq, 'method' | 'url'>) => {
     return AppApi.api({
       ...config,
-      method: KApiMethod.PUT,
+      method: EKMethod.PUT,
       url: QuestionUrl.genUpdate(id),
     });
   },
-  del: (id: string, config?: Omit<IKAxiosReq, 'method' | 'url'>) => {
+  del: (id: string, config?: Omit<IKReq, 'method' | 'url'>) => {
     return AppApi.api({
       ...config,
-      method: KApiMethod.DELETE,
+      method: EKMethod.DELETE,
       url: QuestionUrl.genDel(id),
     });
   },
-  resetStreak: (id: string, config?: Omit<IKAxiosReq, 'method' | 'url'>) => {
+  resetStreak: (id: string, config?: Omit<IKReq, 'method' | 'url'>) => {
     return AppApi.api({
       ...config,
-      method: KApiMethod.POST,
+      method: EKMethod.POST,
       url: QuestionUrl.genResetStreak(id),
     });
   },
-  increaseStreak: (id: string, config?: Omit<IKAxiosReq, 'method' | 'url'>) => {
+  increaseStreak: (id: string, config?: Omit<IKReq, 'method' | 'url'>) => {
     return AppApi.api({
       ...config,
-      method: KApiMethod.POST,
+      method: EKMethod.POST,
       url: QuestionUrl.genIncreaseStreak(id),
     });
   },

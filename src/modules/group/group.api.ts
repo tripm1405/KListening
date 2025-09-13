@@ -1,7 +1,7 @@
-import { IKApiListData, IKApiListResult, IKApiResult, KApiMethod } from '@krotohmi/api';
+import { EKMethod } from '@krotohmi/api';
 import { IGroup } from './group.type';
 import AppApi from '~/app.api';
-import { IKAxiosReq } from '@krotohmi/axios';
+import { IKReq } from '@krotohmi/axios';
 
 export const GroupPrefix = '/groups';
 
@@ -16,50 +16,53 @@ export const GroupUrl = {
 };
 
 const GroupApi = {
-  list: (config?: Omit<IKAxiosReq, 'method' | 'url'>) => {
+  list: (config?: Omit<IKReq, 'method' | 'url'>) => {
     return AppApi.list<IGroup>({
       ...config,
       url: GroupUrl.genList(),
     });
   },
-  detail: (id: string, config?: Omit<IKAxiosReq, 'method' | 'url'>) => {
+  detail: (id: string, config?: Omit<IKReq, 'method' | 'url'>) => {
     return AppApi.list<IGroup>({
       ...config,
       url: GroupUrl.genDetail(id),
     });
   },
-  create: (config?: Omit<IKAxiosReq, 'method' | 'url'>) => {
+  create: (config?: Omit<IKReq, 'method' | 'url'>) => {
     return AppApi.api<IGroup['id']>({
       ...config,
-      method: KApiMethod.POST,
+      method: EKMethod.POST,
       url: GroupUrl.genCreate(),
     });
   },
-  update: (id: string, config?: Omit<IKAxiosReq, 'method' | 'url'>) => {
+  update: (id: string, config?: Omit<IKReq, 'method' | 'url'>) => {
     return AppApi.api({
       ...config,
-      method: KApiMethod.PUT,
+      method: EKMethod.PUT,
       url: GroupUrl.genUpdate(id),
     });
   },
-  del: (id: string, config?: Omit<IKAxiosReq, 'method' | 'url'>) => {
+  del: (id: string, config?: Omit<IKReq, 'method' | 'url'>) => {
     return AppApi.api({
       ...config,
-      method: KApiMethod.DELETE,
+      method: EKMethod.DELETE,
       url: GroupUrl.genDel(id),
     });
   },
-  resetStreak: (id: string, config?: Omit<IKAxiosReq, 'method' | 'url'>) => {
+  resetStreak: (id: string, config?: Omit<IKReq, 'method' | 'url'>) => {
     return AppApi.api<IGroup['id']>({
       ...config,
-      method: KApiMethod.POST,
+      method: EKMethod.POST,
       url: GroupUrl.genResetStreak(id),
     });
   },
-  importQuestions: (id: string, config?: Omit<IKAxiosReq, 'method' | 'url'>) => {
+  importQuestions: (
+    id: string,
+    config?: Omit<IKReq, 'method' | 'url'>,
+  ) => {
     return AppApi.api({
       ...config,
-      method: KApiMethod.POST,
+      method: EKMethod.POST,
       url: GroupUrl.genQuestionImport(id),
     });
   },

@@ -14,7 +14,7 @@ import { useParams } from 'next/navigation';
 
 const QuestionDetailPage = () => {
   const { id } = useParams<{ id: string }>();
-  const { handleApi } = KClient.useContext();
+  const { onApi } = KClient.useContext();
 
   const { data, isLoading } = KTanstack.useApi({
     queryKey: [QuestionQueryKey.Detail, id],
@@ -22,7 +22,7 @@ const QuestionDetailPage = () => {
   });
 
   const onSubmit = async (values: IQuestion) => {
-    await handleApi(QuestionApi.update(id, {
+    await onApi(QuestionApi.update(id, {
       data: values,
     }));
   };

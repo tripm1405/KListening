@@ -12,18 +12,20 @@ import { useRouter } from 'next/navigation';
 import { useQueryClient } from '@tanstack/react-query';
 import { Table } from 'antd';
 import KTanstack from '@krotohmi/tanstack';
-import { IKApiQueryPagination, KApiQueryPagination } from '@krotohmi/api';
+import { IKPaginationQuery } from '@krotohmi/api';
 
 interface IProps {
   groupId?: IGroup['id'];
 }
 
 const QuestionTable = (props: IProps) => {
-  const [pagination, setPagination] =
-    React.useState<IKApiQueryPagination>(KApiQueryPagination);
+  const [pagination, setPagination] = React.useState<IKPaginationQuery>({
+    page: 1,
+    size: 10,
+  });
   const router = useRouter();
   const query = useQueryClient();
-  const { handleApi } = KClient.useContext();
+  const { onApi } = KClient.useContext();
 
   const params = React.useMemo(() => {
     return {
@@ -77,7 +79,7 @@ const QuestionTable = (props: IProps) => {
                 />
                 <KButton.Delete
                   onClick={async () => {
-                    const data = await handleApi(QuestionApi.del(rowData.id));
+                    const data = await onApi(QuestionApi.del(rowData.id));
 
                     if (!data.success) return;
 
@@ -92,8 +94,8 @@ const QuestionTable = (props: IProps) => {
         ]}
       />
       <KPagination
-        current={data?.data?.page}
-        pageSize={data?.data?.size}
+        current={pagination?.page}
+        pageSize={pagination?.size}
         total={data?.data?.total}
         onChange={(page: number, size: number) => {
           setPagination({

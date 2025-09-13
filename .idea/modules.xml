@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../@krotohmi/.idea/@krotohmi.iml" filepath="$PROJECT_DIR$/../@krotohmi/.idea/@krotohmi.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/k-listening-client.iml" filepath="$PROJECT_DIR$/.idea/k-listening-client.iml" />
     </modules>
   </component>

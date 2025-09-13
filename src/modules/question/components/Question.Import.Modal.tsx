@@ -16,7 +16,7 @@ interface IProps {
 
 const QuestionImportModal = (props: IProps) => {
   const query = useQueryClient();
-  const { handleApi, translate } = KClient.useContext();
+  const { onApi, translate } = KClient.useContext();
   const [fileList, setFileList] = React.useState<UploadFile[]>([]);
   const [showImportModal, setShowImportModal] = React.useState(false);
 
@@ -45,7 +45,7 @@ const QuestionImportModal = (props: IProps) => {
                 'Content-Type': 'multipart/form-data',
               },
             };
-            const data = await handleApi(
+            const data = await onApi(
               props.groupId
                 ? GroupApi.importQuestions(props.groupId, config)
                 : QuestionApi.import(config),
